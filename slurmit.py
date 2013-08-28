@@ -8,8 +8,16 @@ targetkey = ('main','morten','PD')
 targetMax = 5000
 onceMax = 100
 
-p=subprocess.Popen(['squeue', '-h'], stdout=subprocess.PIPE)
-(squeue,_) = p.communicate()
+p=subprocess.Popen(['squeue', '-h'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+(squeue,squeue_err) = p.communicate()
+if len(squeue_err) > 0:
+	print '-------------- STDERR(squeue) --------------'
+	print squeue_err
+	print '--------------------------------------------'
+if p.returncode != 0:
+	print 'ERROR: squeue had an error!'
+	exit(1)
+
 counter = {targetkey:0}
 for ln in squeue.split('\n')[:-1]:
 	ln=ln.split()
