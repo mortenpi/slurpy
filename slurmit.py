@@ -5,8 +5,8 @@ import slur
 db = slur.SlurDB()
 
 targetkey = ('main','morten','PD')
-targetMax = 100
-onceMax = 10
+targetMax = 5000
+onceMax = 100
 
 p=subprocess.Popen(['squeue', '-h'], stdout=subprocess.PIPE)
 (squeue,_) = p.communicate()
