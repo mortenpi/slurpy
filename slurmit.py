@@ -6,6 +6,7 @@ db = slur.SlurDB()
 
 targetkey = ('main','morten','PD')
 targetMax = 100
+onceMax = 10
 
 p=subprocess.Popen(['squeue', '-h'], stdout=subprocess.PIPE)
 (squeue,_) = p.communicate()
@@ -18,8 +19,10 @@ for ln in squeue.split('\n')[:-1]:
 	else:
 		counter[key] = 1
 
-remaining = targetMax-counter[targetkey]
-print 'Slots available:', remaining
+slots_available = targetMax-counter[targetkey]
+print 'Slots available:', slots_available
+remaining = min(slots_available, onceMax)
+print 'Submitting {0} jobs.'.format(remaining)
 
 if remaining<=0:
 	print 'No slots available!'
