@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from datetime import datetime
 import subprocess
 
 import slur
@@ -8,6 +9,9 @@ targetkey = ('main','morten','PD')
 targetMax = 5000
 onceMax = 100
 
+print "SLURMIT:", datetime.today()
+
+print "Running squeue..."
 p=subprocess.Popen(['squeue', '-h'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 (squeue,squeue_err) = p.communicate()
 if len(squeue_err) > 0:
