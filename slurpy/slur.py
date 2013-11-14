@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import sqlite3
 import os
 import os.path
@@ -49,30 +48,3 @@ class SlurDB:
 		self._db.execute("UPDATE queue SET submitted=submitted+1 WHERE id=?", (id,))
 		self._db.execute("INSERT INTO job(queue,slurmid,submit) VALUES (?, ?, ?)", (id,slurmid,datetime.today()))
 		self._db.commit()
-
-if __name__=='__main__':
-	import sys
-	print 'Arguments:', sys.argv
-
-	args_sbatch = []
-	args_script = []
-	script = None
-	for x in sys.argv[1:]:
-		if script is None and x[0] == '-':
-			args_sbatch.append(x)
-		elif script is None:
-			script = os.path.abspath(x)
-		else:
-			args_script.append(x)
-
-	print 'sbatch args:', args_sbatch
-	print 'script:', script
-	print 'script args:', args_script
-
-	if script is None:
-		print 'Bad arguments!'
-		exit(1)
-
-	print 'Queueing a job!'
-	db=SlurDB()
-	db.queue_job(script, args_script, args_sbatch)

@@ -2,8 +2,8 @@
 from datetime import datetime
 import subprocess
 
-import slur
-db = slur.SlurDB()
+import slurpy
+db = slurpy.SlurDB()
 
 targetkey = ('main','morten','PD')
 targetMax = 5000
