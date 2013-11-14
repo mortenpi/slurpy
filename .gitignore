@@ -1,1 +1,6 @@
 *.pyc
+
+# Files created with the distribution
+MANIFEST
+dist/
+build/
